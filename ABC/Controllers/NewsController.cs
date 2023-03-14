@@ -25,11 +25,11 @@ namespace ABC.Controllers {
             return Ok(await newsService.GetStories(Type, Start));
         }
 
-        //[HttpGet("comments/{ID}/{Start}")]
-        //public async Task<IActionResult> GetStories(int ID, int Start) {
+        [HttpPost("comments")]
+        public async Task<IActionResult> GetStories([FromBody] List<int> storyIDs) {
 
-        //    return Ok(await newsService.GetComments(ID, Start));
-        //}
+            return Ok(await newsService.GetComments(storyIDs));
+        }
 
 
 

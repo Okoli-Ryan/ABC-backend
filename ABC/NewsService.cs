@@ -35,5 +35,18 @@
 
             return taskList.Select(r => (News)r).ToList();
         }
+
+        public async Task<List<News>> GetComments(List<int> storyIDs) {
+
+
+            List<Task<News>> tasks = new();
+
+            storyIDs.ForEach(x => tasks.Add(Task.Run(() => netService.HttpGet<News>($"https://hacker-news.firebaseio.com/v0/item/{x}.json"))));
+
+            var taskList = await Task.WhenAll(tasks);
+
+            return taskList.Select(r => (News)r).ToList();
+        }
+
     }
 }
